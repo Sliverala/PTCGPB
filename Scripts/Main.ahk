@@ -46,6 +46,7 @@ IniRead, discordUserId, %A_ScriptDir%\..\Settings.ini, UserSettings, discordUser
 IniRead, deleteMethod, %A_ScriptDir%\..\Settings.ini, UserSettings, deleteMethod, Hoard
 IniRead, sendXML, %A_ScriptDir%\..\Settings.ini, UserSettings, sendXML, 0
 IniRead, heartBeat, %A_ScriptDir%\..\Settings.ini, UserSettings, heartBeat, 1
+IniRead, heartBeatWebhookURL, %A_ScriptDir%\..\Settings.ini, UserSettings, heartBeatWebhookURL, ""
 if(heartBeat)
 	IniWrite, 1, %A_ScriptDir%\..\HeartBeat.ini, HeartBeat, Main
 IniRead, vipIdsURL, %A_ScriptDir%\..\Settings.ini, UserSettings, vipIdsURL
@@ -627,8 +628,12 @@ Screenshot(filename := "Valid") {
 }
 
 LogToDiscord(message, screenshotFile := "", ping := false, xmlFile := "") {
-	global discordUserId, discordWebhookURL, sendXML
-	if (discordWebhookURL != "") {
+	global discordUserId, discordWebhookURL, heartBeat, heartBeatWebhookURL, sendXML
+	mainWebWebhookURL := discordWebhookURL
+	if (heartBeat && heartBeatWebhookURL != "") {
+		mainWebWebhookURL := heartBeatWebhookURL
+	}
+	if (mainWebWebhookURL != "") {
 		MaxRetries := 10
 		RetryCount := 0
 		Loop {
@@ -642,7 +647,7 @@ LogToDiscord(message, screenshotFile := "", ping := false, xmlFile := "") {
 
 				; Create the HTTP request object
 				whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-				whr.Open("POST", discordWebhookURL, false)
+				whr.Open("POST", mainWebWebhookURL, false)
 				whr.SetRequestHeader("Content-Type", "application/json")
 				whr.Send(data)
 
@@ -651,14 +656,14 @@ LogToDiscord(message, screenshotFile := "", ping := false, xmlFile := "") {
 					; Check if the file exists
 					if (FileExist(screenshotFile)) {
 						; Send the image using curl
-						RunWait, curl -k -F "file=@%screenshotFile%" %discordWebhookURL%,, Hide
+						RunWait, curl -k -F "file=@%screenshotFile%" %mainWebWebhookURL%,, Hide
 					}
 				}
 				if (xmlFile != "" && sendXML > 0) {
 					; Check if the file exists
 					if (FileExist(xmlFile)) {
 						; Send the image using curl
-						RunWait, curl -k -F "file=@%xmlFile%" %discordWebhookURL%,, Hide
+						RunWait, curl -k -F "file=@%xmlFile%" %mainWebWebhookURL%,, Hide
 					}
 				}
 				break
