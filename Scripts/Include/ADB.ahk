@@ -166,7 +166,6 @@ initializeAdbShell() {
                     throw "Failed to start ADB shell."
                 }
 
-                adbShell.StdIn.WriteLine("su")
             }
 
             ; If adbShell is running, break loop
