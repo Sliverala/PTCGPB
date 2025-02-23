@@ -756,7 +756,7 @@ FindOrLoseImage(X1, Y1, X2, Y2, searchVariation := "", imageName := "DEFAULT", E
 			vRet := Gdip_ImageSearch(pBitmap, pNeedle, vPosXY, 30, 325, 55, 445, searchVariation)
 		}
 		if (vRet = 1) {
-			adbShell.StdIn.WriteLine("rm -rf /data/data/jp.pokemon.pokemontcgp/cache/*") ; clear cache
+			adbShell.StdIn.WriteLine("su -c 'rm -rf /data/data/jp.pokemon.pokemontcgp/cache/*'") ; clear cache
 			waitadb()
 			CreateStatusMessage("Loaded deleted account. Deleting XML." )
 			if(loadedAccount) {
@@ -943,7 +943,7 @@ FindImageAndClick(X1, Y1, X2, Y2, searchVariation := "", imageName := "DEFAULT",
 				vRet := Gdip_ImageSearch(pBitmap, pNeedle, vPosXY, 30, 325, 55, 445, searchVariation)
 			}
 			if (vRet = 1) {
-				adbShell.StdIn.WriteLine("rm -rf /data/data/jp.pokemon.pokemontcgp/cache/*") ; clear cache
+				adbShell.StdIn.WriteLine("su -c 'rm -rf /data/data/jp.pokemon.pokemontcgp/cache/*'") ; clear cache
 				waitadb()
 				CreateStatusMessage("Loaded deleted account. Deleting XML." )
 				if(loadedAccount) {
@@ -1067,7 +1067,7 @@ restartGameInstance(reason, RL := true){
 		adbShell.StdIn.WriteLine("am force-stop jp.pokemon.pokemontcgp")
 		waitadb()
 		if(!RL && DeadCheck==0)
-			adbShell.StdIn.WriteLine("rm /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml") ; delete account data
+			adbShell.StdIn.WriteLine("su -c 'rm /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml'") ; delete account data
 		waitadb()
 		adbShell.StdIn.WriteLine("am start -n jp.pokemon.pokemontcgp/com.unity3d.player.UnityPlayerActivity")
 		waitadb()
@@ -1682,7 +1682,7 @@ loadAccount() {
 
 	Sleep, 500
 
-	adbShell.StdIn.WriteLine("cp /sdcard/deviceAccount.xml /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml")
+	adbShell.StdIn.WriteLine("su -c 'cp /sdcard/deviceAccount.xml /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml'")
 	waitadb()
 	adbShell.StdIn.WriteLine("rm /sdcard/deviceAccount.xml")
 	waitadb()
@@ -1731,7 +1731,7 @@ saveAccount(file := "Valid", ByRef filePath := "") {
 	Loop {
 		CreateStatusMessage("Attempting to save account XML. " . count . "/10")
 
-		adbShell.StdIn.WriteLine("cp -f /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml /sdcard/deviceAccount.xml")
+		adbShell.StdIn.WriteLine("su -c 'cp -f /data/data/jp.pokemon.pokemontcgp/shared_prefs/deviceAccount:.xml /sdcard/deviceAccount.xml'")
 		waitadb()
 		Sleep, 500
 
@@ -2196,8 +2196,6 @@ initializeAdbShell() {
 				if (adbShell.Status != 0) {
 					throw "Failed to start ADB shell."
 				}
-
-				adbShell.StdIn.WriteLine("su")
 			}
 
 			; If adbShell is running, break loop
