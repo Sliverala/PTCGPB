@@ -1439,9 +1439,9 @@ FindGodPack() {
 	Loop {
 		normalBorders := false
 		pBitmap := from_window(WinExist(winTitle))
-		Path = %A_ScriptDir%\%defaultLanguage%\Border.png
-		pNeedle := GetNeedle(Path)
 		for index, value in borderCoords {
+			Path = %A_ScriptDir%\%defaultLanguage%\common%A_Index%.png
+			pNeedle := GetNeedle(Path)
 			coords := borderCoords[A_Index]
 			vRet := Gdip_ImageSearch(pBitmap, pNeedle, vPosXY, coords[1], coords[2], coords[3], coords[4], searchVariation)
 			if (vRet = 1) {
