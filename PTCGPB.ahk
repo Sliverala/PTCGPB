@@ -85,6 +85,7 @@ IniRead, autoLaunchMonitor, Settings.ini, UserSettings, autoLaunchMonitor, 1
 IniRead, mainIdsURL, Settings.ini, UserSettings, mainIdsURL, ""
 IniRead, vipIdsURL, Settings.ini, UserSettings, vipIdsURL, ""
 IniRead, instanceLaunchDelay, Settings.ini, UserSettings, instanceLaunchDelay, 5
+IniRead, mistakeGP, Settings.ini, UserSettings, mistakeGP, 0
 
 ; Create a stylish GUI with custom colors and modern look
 Gui, Color, 1E1E1E, 333333 ; Dark theme background
@@ -263,6 +264,8 @@ Gui, Add, Edit, vmainIdsURL w460 x270 y425 h20 -E0x200 Background2A2A2A cWhite, 
 Gui, Add, Text, x270 y445 cWhite, vip_ids.txt (GP Test Mode) API:
 Gui, Add, Edit, vvipIdsURL w460 x270 y465 h20 -E0x200 Background2A2A2A cWhite, %vipIdsURL%
 
+; ========== Advanced Settings Section ==========
+Gui, Add, Checkbox, % (mistakeGP ? "Checked" : "") " vmistakeGP x20 y475 cWhite", Check this only if MISTAKE GP
 
 if (defaultLanguage = "Scale125") {
 	defaultLang := 1
@@ -409,6 +412,7 @@ Start:
 	if(mainIdsURL != "") {
 		DownloadFile(mainIdsURL, "ids.txt")
 	}
+	IniWrite, %mistakeGP%, Settings.ini, UserSettings, mistakeGP
 
 	; Run main before instances to account for instance start delay
 	if (runMain) {
