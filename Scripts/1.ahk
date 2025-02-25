@@ -1240,16 +1240,16 @@ FindGodPack() {
 			break
 		Delay(1)
 	}
-	borderCoords := [[20, 284, 90, 286]
-		,[103, 284, 173, 286]]
+	borderCoords := [[30, 284, 83, 286]
+		,[113, 284, 166, 286]]
 	if(packs = 3)
 		packs := 0
 	Loop {
 		normalBorders := false
 		pBitmap := from_window(WinExist(winTitle))
-		Path = %A_ScriptDir%\%defaultLanguage%\Border.png
-		pNeedle := GetNeedle(Path)
 		for index, value in borderCoords {
+			Path = %A_ScriptDir%\%defaultLanguage%\common%A_Index%.png
+			pNeedle := GetNeedle(Path)
 			coords := borderCoords[A_Index]
 			vRet := Gdip_ImageSearch(pBitmap, pNeedle, vPosXY, coords[1], coords[2], coords[3], coords[4], searchVariation)
 			if (vRet = 1) {
@@ -1268,7 +1268,8 @@ FindGodPack() {
 				packs := 1
 			foundImmersive := FindBorders("immersive")
 			foundCrown := FindBorders("crown")
-			if(foundImmersive || foundCrown) {
+			foundCommon := FindBorders("common")
+			if(foundImmersive || foundCrown || foundCommon) {
 				invalidGP := true
 			}
 			if(!invalidGP && minStars > 0) {
