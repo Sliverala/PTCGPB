@@ -80,6 +80,7 @@ IniRead, Pikachu, Settings.ini, UserSettings, Pikachu, 0
 IniRead, Charizard, Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, Settings.ini, UserSettings, slowMotion, 0
+IniRead, mistakeGP, Settings.ini, UserSettings, mistakeGP, 0
 
 ; Create a stylish GUI with custom colors and modern look
 Gui, Color, 1E1E1E, 333333 ; Dark theme background
@@ -176,6 +177,9 @@ Gui, Add, Checkbox, % (RainbowCheck ? "Checked" : "") " vRainbowCheck x265 y310 
 Gui, Add, Checkbox, % (PseudoGodPack ? "Checked" : "") " vPseudoGodPack x265 y330 cFF4500", Double 2 Star
 Gui, Add, Checkbox, % (CrownCheck ? "Checked" : "") " vCrownCheck x365 y270 cFF4500", Save Crowns
 Gui, Add, Checkbox, % (ImmersiveCheck ? "Checked" : "") " vImmersiveCheck x365 y290 cFF4500", Save Immersives
+
+; ========== Advanced Settings Section ==========
+Gui, Add, Checkbox, % (mistakeGP ? "Checked" : "") " vmistakeGP x510 y270 cFF4500", Check this only if MISTAKE GP
 
 ; ========== Time Settings Section ==========
 Gui, Add, GroupBox, x495 y0 w240 h120 c9370DB, Time Settings ; Purple
@@ -325,6 +329,7 @@ Start:
 	IniWrite, %Charizard%, Settings.ini, UserSettings, Charizard
 	IniWrite, %Mewtwo%, Settings.ini, UserSettings, Mewtwo
 	IniWrite, %slowMotion%, Settings.ini, UserSettings, slowMotion
+	IniWrite, %mistakeGP%, Settings.ini, UserSettings, mistakeGP
 
 	; Run main before instances to account for instance start delay
 	if (runMain) {

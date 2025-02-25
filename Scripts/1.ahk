@@ -56,6 +56,7 @@ IniRead, Pikachu, %A_ScriptDir%\..\Settings.ini, UserSettings, Pikachu, 0
 IniRead, Charizard, %A_ScriptDir%\..\Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, %A_ScriptDir%\..\Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, %A_ScriptDir%\..\Settings.ini, UserSettings, slowMotion, 0
+IniRead, mistakeGP, %A_ScriptDir%\..\Settings.ini, UserSettings, mistakeGP, 0
 
 pokemonList := ["Palkia", "Dialga", "Mew", "Pikachu", "Charizard", "Mewtwo", "Arceus"]
 
@@ -1221,7 +1222,7 @@ FindBorders(prefix) {
 }
 
 FindGodPack() {
-	global winTitle, discordUserId, Delay, username, packs, minStars
+	global winTitle, discordUserId, Delay, username, packs, minStars, mistakeGP
 	gpFound := false
 	invalidGP := false
 	searchVariation := 5
@@ -1239,8 +1240,10 @@ FindGodPack() {
 		normalBorders := false
 		pBitmap := from_window(WinExist(winTitle))
 		Path = %A_ScriptDir%\%defaultLanguage%\Border.png
-		pNeedle := GetNeedle(Path)
 		for index, value in borderCoords {
+			if mistakeGP
+				Path = %A_ScriptDir%\%defaultLanguage%\common%A_Index%.png
+			pNeedle := GetNeedle(Path)
 			coords := borderCoords[A_Index]
 			vRet := Gdip_ImageSearch(pBitmap, pNeedle, vPosXY, coords[1], coords[2], coords[3], coords[4], searchVariation)
 			if (vRet = 1) {
