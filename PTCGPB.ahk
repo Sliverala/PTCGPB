@@ -80,6 +80,7 @@ IniRead, Pikachu, Settings.ini, UserSettings, Pikachu, 0
 IniRead, Charizard, Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, Settings.ini, UserSettings, slowMotion, 0
+IniRead, mistakeGP, Settings.ini, UserSettings, mistakeGP, 0
 
 Gui, Add, Text, x10 y10, Friend ID:
 ; Add input controls
@@ -106,6 +107,11 @@ else
 Gui, Add, Text, x10 y135, God Pack Settings:
 Gui, Add, Text, x30 y155, Min. 2 Stars:
 Gui, Add, Edit, vminStars w25 x90 y155 h18, %minStars%
+
+if(mistakeGP)
+	Gui, Add, Checkbox, Checked vmistakeGP x125 y155, Mistake GP
+else
+	Gui, Add, Checkbox, vmistakeGP x125 y155, Mistake GP
 
 Gui, Add, Text, x10 y180, Method:
 
@@ -378,6 +384,7 @@ Start:
 	IniWrite, %Charizard%, Settings.ini, UserSettings, Charizard
 	IniWrite, %Mewtwo%, Settings.ini, UserSettings, Mewtwo
 	IniWrite, %slowMotion%, Settings.ini, UserSettings, slowMotion
+	IniWrite, %mistakeGP%, Settings.ini, UserSettings, mistakeGP
 
 	; Run main before instances to account for instance start delay
 	if (runMain) {
