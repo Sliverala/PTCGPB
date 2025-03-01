@@ -1666,7 +1666,7 @@ adbInputEvent(event) {
 adbSwipeUp() {
 	global adbShell, adbPath, adbPort
 	;initializeAdbShell()
-	adbShell.StdIn.WriteLine("input swipe 309 816 309 355 60")
+	adbShell.StdIn.WriteLine("input swipe 309 876 309 207 160")
 	waitadb()
 }
 
