@@ -2375,15 +2375,15 @@ DoTutorial() {
     }
 
     FindImageAndClick(34, 99, 74, 131, , "Swipe", 140, 375) ;click through cards until needing to swipe up
-        if(setSpeed > 1) {
+        if(setSpeed > 2) {
             FindImageAndClick(65, 195, 100, 215, , "Platin", 18, 109, 2000) ; click mod settings
-            FindImageAndClick(9, 170, 25, 190, , "One", 26, 180) ; click mod settings
+            FindImageAndClick(100, 170, 113, 190, , "Two", 107, 180) ; click mod settings
             Delay(1)
         }
     failSafe := A_TickCount
     failSafeTime := 0
     Loop {
-        adbSwipe("266 770 266 355 60")
+        adbSwipe("309 876 309 207 60")
         Sleep, 10
         if (FindOrLoseImage(120, 70, 150, 95, , "SwipeUp", 0, failSafeTime)){
             if(setSpeed > 1) {
