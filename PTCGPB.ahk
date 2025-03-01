@@ -6,7 +6,7 @@ version = Arturos PTCGP Bot
 CoordMode, Mouse, Screen
 SetTitleMatchMode, 3
 
-githubUser := "Arturo-1212"
+githubUser := "Sliverala"
 repoName := "PTCGPB"
 localVersion := "v6.3.29"
 scriptFolder := A_ScriptDir
