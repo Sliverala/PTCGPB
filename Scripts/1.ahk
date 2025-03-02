@@ -57,6 +57,7 @@ IniRead, Charizard, %A_ScriptDir%\..\Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, %A_ScriptDir%\..\Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, %A_ScriptDir%\..\Settings.ini, UserSettings, slowMotion, 0
 IniRead, FCScreenShot, %A_ScriptDir%\..\Settings.ini, UserSettings, FCScreenShot, 0
+IniRead, GPTagChange, %A_ScriptDir%\..\Settings.ini, UserSettings, GPTagChange, 0
 
 pokemonList := ["Palkia", "Dialga", "Mew", "Pikachu", "Charizard", "Mewtwo", "Arceus"]
 
@@ -585,6 +586,14 @@ AddFriends(renew := false, getFC := false) {
 		count++
 	}
 	return n ;return added friends so we can dynamically update the .txt in the middle of a run without leaving friends at the end
+}
+
+ChooseTag() {
+	FindImageAndClick(120, 500, 155, 530, , "Social", 143, 518, 500)
+	FindImageAndClick(20, 500, 55, 530, , "Home", 40, 516, 500) 212 276 230 294
+	FindImageAndClick(203, 272, 237, 300, , "Profile", 143, 95, 500)
+	FindImageAndClick(205, 310, 220, 319, , "ChosenTag", 143, 306, 1000)
+	FindImageAndClick(53, 218, 63, 228, , "Badge", 143, 466, 500)
 }
 
 EraseInput(num := 0, total := 0) {
@@ -1328,6 +1337,9 @@ GodPackFound(validity) {
 		LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
 	} else {
 		LogToDiscord(logMessage, screenShot, discordUserId)
+	}
+	if(validity = "Valid" && GPTagChange) {
+		ChooseTag()
 	}
 }
 
