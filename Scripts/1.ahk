@@ -56,6 +56,7 @@ IniRead, Pikachu, %A_ScriptDir%\..\Settings.ini, UserSettings, Pikachu, 0
 IniRead, Charizard, %A_ScriptDir%\..\Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, %A_ScriptDir%\..\Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, %A_ScriptDir%\..\Settings.ini, UserSettings, slowMotion, 0
+IniRead, FCScreenShot, %A_ScriptDir%\..\Settings.ini, UserSettings, FCScreenShot, 0
 
 pokemonList := ["Palkia", "Dialga", "Mew", "Pikachu", "Charizard", "Mewtwo", "Arceus"]
 
@@ -1189,16 +1190,21 @@ FoundStars(star) {
 	accountFile := saveAccount(star)
 	friendCode := getFriendCode()
 
-	; Pull back screenshot of the friend code/name (good for inject method)
-	Sleep, 8000
-	fcScreenshot := Screenshot("FRIENDCODE")
-
 	if(star = "Crown" || star = "Immersive")
 		RemoveFriends()
 	logMessage := star . " found by " . username . " (" . friendCode . ") in instance: " . scriptName . " (" . packs . " packs)\nFile name: " . accountFile . "\nBacking up to the Accounts\\SpecificCards folder and continuing..."
 	CreateStatusMessage(logMessage)
 	LogToFile(logMessage, "GPlog.txt")
-	LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
+
+	if(FCScreenShot) {
+		; Pull screenshot of the Friend code page; wait so we don't get the clipboard pop up; good for the inject method
+		Sleep, 8000
+		fcScreenshot := Screenshot("FRIENDCODE")
+		;Run, http://google.com, , Hide ;Remove the ; at the start of the line and replace your url if you want to trigger a link when finding a god pack.
+		LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
+	} else {
+		LogToDiscord(logMessage, screenShot, discordUserId)
+	}
 }
 
 FindBorders(prefix) {
@@ -1291,6 +1297,7 @@ FindGodPack() {
 }
 
 GodPackFound(validity) {
+	global FCScreenShot
 	if(validity = "Valid") {
 		Praise := ["Congrats!", "Congratulations!", "GG!", "Whoa!", "Praise Helix! ༼ つ ◕_◕ ༽つ", "Way to go!", "You did it!", "Awesome!", "Nice!", "Cool!", "You deserve it!", "Keep going!", "This one has to be live!", "No duds, no duds, no duds!", "Fantastic!", "Bravo!", "Excellent work!", "Impressive!", "You're amazing!", "Well done!", "You're crushing it!", "Keep up the great work!", "You're unstoppable!", "Exceptional!", "You nailed it!", "Hats off to you!", "Sweet!", "Kudos!", "Phenomenal!", "Boom! Nailed it!", "Marvelous!", "Outstanding!", "Legendary!", "Youre a rock star!", "Unbelievable!", "Keep shining!", "Way to crush it!", "You're on fire!", "Killing it!", "Top-notch!", "Superb!", "Epic!", "Cheers to you!", "Thats the spirit!", "Magnificent!", "Youre a natural!", "Gold star for you!", "You crushed it!", "Incredible!", "Shazam!", "You're a genius!", "Top-tier effort!", "This is your moment!", "Powerful stuff!", "Wicked awesome!", "Props to you!", "Big win!", "Yesss!", "Champion vibes!", "Spectacular!"]
 		invalid := ""
@@ -1310,14 +1317,18 @@ GodPackFound(validity) {
 	CreateStatusMessage(logMessage)
 	friendCode := getFriendCode()
 
-	; Pull screenshot of the Friend code page; wait so we don't get the clipboard pop up; good for the inject method
-	Sleep, 8000
-	fcScreenshot := Screenshot("FRIENDCODE")
-
 	logMessage := Interjection . "\n" . username . " (" . friendCode . ")\n[" . starCount . "/5][" . packs . "P] " . invalid . " God pack found in instance: " . scriptName . "\nFile name: " . accountFile . "\nBacking up to the Accounts\\GodPacks folder and continuing..."
 	LogToFile(logMessage, godPackLog)
-	;Run, http://google.com, , Hide ;Remove the ; at the start of the line and replace your url if you want to trigger a link when finding a god pack.
-	LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
+	
+	if(FCScreenShot) {
+		; Pull screenshot of the Friend code page; wait so we don't get the clipboard pop up; good for the inject method
+		Sleep, 8000
+		fcScreenshot := Screenshot("FRIENDCODE")
+		;Run, http://google.com, , Hide ;Remove the ; at the start of the line and replace your url if you want to trigger a link when finding a god pack.
+		LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
+	} else {
+		LogToDiscord(logMessage, screenShot, discordUserId)
+	}
 }
 
 loadAccount() {
