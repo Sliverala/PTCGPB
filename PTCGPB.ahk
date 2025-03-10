@@ -82,7 +82,6 @@ IniRead, Mewtwo, Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, Settings.ini, UserSettings, slowMotion, 0
 IniRead, ocrLanguage, Settings.ini, UserSettings, ocrLanguage, en
 IniRead, autoLaunchMonitor, Settings.ini, UserSettings, autoLaunchMonitor, 1
-IniRead, mainIdsURL, Settings.ini, UserSettings, mainIdsURL, ""
 IniRead, vipIdsURL, Settings.ini, UserSettings, vipIdsURL, ""
 IniRead, instanceLaunchDelay, Settings.ini, UserSettings, instanceLaunchDelay, 5
 IniRead, mistakeGP, Settings.ini, UserSettings, mistakeGP, 0
@@ -254,13 +253,9 @@ Gui, Add, Button, gLaunchAllMumu x505 y315 w115 h30, Launch All Mumu
 ; ========== Download Settings Section (Bottom right) ==========
 Gui, Add, GroupBox, x255 y385 w490 h110 cWhite, Download Settings ;
 
-if(StrLen(mainIdsURL) < 3)
-    mainIdsURL =
 if(StrLen(vipIdsURL) < 3)
     vipIdsURL = 
 
-Gui, Add, Text, x270 y405 cWhite, ids.txt API:
-Gui, Add, Edit, vmainIdsURL w460 x270 y425 h20 -E0x200 Background2A2A2A cWhite, %mainIdsURL%
 Gui, Add, Text, x270 y445 cWhite, vip_ids.txt (GP Test Mode) API:
 Gui, Add, Edit, vvipIdsURL w460 x270 y465 h20 -E0x200 Background2A2A2A cWhite, %vipIdsURL%
 
@@ -402,16 +397,10 @@ Start:
 	IniWrite, %slowMotion%, Settings.ini, UserSettings, slowMotion
 
 	IniWrite, %ocrLanguage%, Settings.ini, UserSettings, ocrLanguage
-	IniWrite, %mainIdsURL%, Settings.ini, UserSettings, mainIdsURL
 	IniWrite, %vipIdsURL%, Settings.ini, UserSettings, vipIdsURL
 	IniWrite, %autoLaunchMonitor%, Settings.ini, UserSettings, autoLaunchMonitor
 	IniWrite, %instanceLaunchDelay%, Settings.ini, UserSettings, instanceLaunchDelay
 
-
-	; Download a new Main ID file prior to running the rest of the below
-	if(mainIdsURL != "") {
-		DownloadFile(mainIdsURL, "ids.txt")
-	}
 	IniWrite, %mistakeGP%, Settings.ini, UserSettings, mistakeGP
 
 	; Run main before instances to account for instance start delay
@@ -492,11 +481,6 @@ Start:
 
 	Loop {
 		Sleep, 30000
-
-		; Every 5 minutes, pull down the main ID list
-		if(mainIdsURL != "" && Mod(A_Index, 10) = 0) {
-			DownloadFile(mainIdsURL, "ids.txt")
-		}
 
 		; Sum all variable values and write to total.json
 		total := SumVariablesInJsonFile()
