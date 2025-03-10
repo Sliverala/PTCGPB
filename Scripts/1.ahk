@@ -1243,16 +1243,12 @@ FoundStars(star) {
 	friendCode := getFriendCode()
 	IniWrite, 0, %A_ScriptDir%\%scriptName%.ini, UserSettings, DeadCheck
 
-	; Pull back screenshot of the friend code/name (good for inject method)
-	Sleep, 8000
-	fcScreenshot := Screenshot("FRIENDCODE")
-
 	if(star = "Crown" || star = "Immersive")
 		RemoveFriends()
 	logMessage := star . " found by " . username . " (" . friendCode . ") in instance: " . scriptName . " (" . packs . " packs)\nFile name: " . accountFile . "\nBacking up to the Accounts\\SpecificCards folder and continuing..."
 	CreateStatusMessage(logMessage)
 	LogToFile(logMessage, "GPlog.txt")
-	LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
+	LogToDiscord(logMessage, screenShot, discordUserId)
 	if(validity = "Valid") {
 		ChooseTag()
 	}
@@ -1374,38 +1370,12 @@ GodPackFound(validity) {
 	friendCode := getFriendCode()
 	IniWrite, 0, %A_ScriptDir%\%scriptName%.ini, UserSettings, DeadCheck
 
-	; Pull screenshot of the Friend code page; wait so we don't get the clipboard pop up; good for the inject method
-	Sleep, 8000
-	fcScreenshot := Screenshot("FRIENDCODE")
-
-	; BallCity 2025.02.20 - If we're doing the inject method, try to OCR our Username
-	try {
-		if(injectMethod && IsFunc("ocr_from_file"))
-		{
-				ocrText := Func("ocr_from_file").Call(fcScreenshot, ocrLanguage)
-				ocrLines := StrSplit(ocrText, "`n")
-				len := ocrLines.MaxIndex()
-				if(len > 1) {
-					playerName := ocrLines[1]
-					playerID := RegExReplace(ocrLines[2], "[^0-9]", "")
-					; playerID := SubStr(ocrLines[2], 1, 19)
-					username := playerName
-				}
-		}
-	} catch e {
-		LogToFile("Failed to OCR the friend code: " . e.message, "BC.txt")
-	}
-
 	logMessage := Interjection . "\n" . username . " (" . friendCode . ")\n[" . starCount . "/5][" . packs . "P] " . invalid . " God pack found in instance: " . scriptName . "\nFile name: " . accountFile . "\nBacking up to the Accounts\\GodPacks folder and continuing..."
 	LogToFile(logMessage, godPackLog)
 	;Run, http://google.com, , Hide ;Remove the ; at the start of the line and replace your url if you want to trigger a link when finding a god pack.
 
 	; Adjust the below to only send a 'ping' to Discord friends on Valid packs
-	if(validity = "Valid") {
-		LogToDiscord(logMessage, screenShot, discordUserId, "", fcScreenshot)
-	} else {
-		LogToDiscord(logMessage, screenShot)
-	}
+	LogToDiscord(logMessage, screenShot, discordUserId)
 	if(validity = "Valid") {
 		ChooseTag()
 	}
