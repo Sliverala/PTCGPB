@@ -286,12 +286,13 @@ if(DeadCheck = 1){
 
             if(deleteMethod != "5 Pack (Fast)") {
                 friendsAdded := AddFriends(true)
-            } else {
-                FindImageAndClick(120, 500, 155, 530, , "Social", 143, 518, 500)
-                FindImageAndClick(20, 500, 55, 530, , "Home", 40, 516, 500)
+                SelectPack("HGPack")
+                PackOpening()
             }
-            SelectPack("HGPack")
-            PackOpening()
+            else{
+                HourglassOpening(true)
+            }
+
             if(packMethod) {
                 friendsAdded := AddFriends(true)
                 SelectPack("HGPack")
