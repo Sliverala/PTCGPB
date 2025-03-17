@@ -70,6 +70,7 @@ IniRead, slowMotion, %A_ScriptDir%\..\Settings.ini, UserSettings, slowMotion, 0
 IniRead, DeadCheck, %A_ScriptDir%\%scriptName%.ini, UserSettings, DeadCheck, 0
 IniRead, ocrLanguage, %A_ScriptDir%\..\Settings.ini, UserSettings, ocrLanguage, en
 IniRead, sendAccountXml, %A_ScriptDir%\..\Settings.ini, UserSettings, sendAccountXml, 0
+IniRead, mainIdsURL, %A_ScriptDir%\..\Settings.ini, UserSettings, mainIdsURL, ""
 
 IniRead, minStarsA1Charizard, %A_ScriptDir%\..\Settings.ini, UserSettings, minStarsA1Charizard, 0
 IniRead, minStarsA1Mewtwo, %A_ScriptDir%\..\Settings.ini, UserSettings, minStarsA1Mewtwo, 0
@@ -1766,6 +1767,11 @@ DownloadFile(url, filename) {
 }
 
 ReadFile(filename, numbers := false) {
+	global mainIdsURL
+	if(filename = "ids" && mainIdsURL != "") {
+		DownloadFile(mainIdsURL, "ids.txt")
+		Delay(1)
+	}
 	FileRead, content, %A_ScriptDir%\..\%filename%.txt
 
 	if (!content)
