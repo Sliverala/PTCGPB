@@ -606,11 +606,6 @@ Start:
 	Loop {
 		Sleep, 30000
 
-		; Every 5 minutes, pull down the main ID list
-		if(mainIdsURL != "" && Mod(A_Index, 10) = 0) {
-			DownloadFile(mainIdsURL, "ids.txt")
-		}
-
 		; Sum all variable values and write to total.json
 		total := SumVariablesInJsonFile()
 		totalSeconds := Round((A_TickCount - rerollTime) / 1000) ; Total time in seconds
