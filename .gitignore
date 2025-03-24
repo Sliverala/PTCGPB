@@ -1,6 +1,7 @@
 sample.png
 MonitorTEST.ahk
 MonitorOnce.ahk
+.vscode
 
 Accounts/*
 !Accounts/Saved/1.txt
@@ -14,6 +15,7 @@ Screenshots/*
 Scripts/*.ahk
 !Scripts/1.ahk
 !Scripts/Main.ahk
+Scripts/*.ini
 HeartBeat.ini
 Settings.ini
 usernames.txt
