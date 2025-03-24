@@ -16,3 +16,4 @@ vip_ids.txt
 *.ini
 *.bak
 !.gitkeep
+.vscode
