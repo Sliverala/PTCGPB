@@ -1061,7 +1061,7 @@ menuDelete() {
 	Sleep,%Delay%
 	FindImageAndClick(24, 158, 57, 189, , "Account", 140, 440, 2000) ;wait for other menu
 	Sleep,%Delay%
-	FindImageAndClick(56, 312, 108, 334, , "Account2", 79, 256, 1000) ;wait for account menu
+	FindImageAndClick(56, 444, 108, 455, , "Account2", 79, 256, 1000) ;wait for account menu
 	Sleep,%Delay%
 
 	failSafe := A_TickCount
@@ -1078,7 +1078,7 @@ menuDelete() {
 					adbClick(pos1, pos2)
 				}
 				else {
-					adbClick(145, 446)
+					adbClick(237, 505)
 				}
 				Delay(1)
 				failSafeTime := (A_TickCount - failSafe) // 1000
@@ -1127,7 +1127,7 @@ menuDeleteStart() {
 		}
 		else if(FindOrLoseImage(20, 120, 50, 150, , "Menu", 0, failSafeTime)) { ; if the clicks in the top right open up the game settings menu then continue to delete account
 			Sleep,%Delay%
-			FindImageAndClick(56, 312, 108, 334, , "Account2", 79, 256, 1000) ;wait for account menu
+			FindImageAndClick(56, 444, 108, 455, , "Account2", 79, 256, 1000) ;wait for account menu
 			Sleep,%Delay%
 			failSafe := A_TickCount
 			failSafeTime := 0
@@ -1140,7 +1140,7 @@ menuDeleteStart() {
 						adbClick(pos1, pos2)
 					}
 					else {
-						adbClick(145, 446)
+						adbClick(237, 505)
 					}
 					Delay(1)
 					failSafeTime := (A_TickCount - failSafe) // 1000
