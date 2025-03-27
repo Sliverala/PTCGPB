@@ -1082,9 +1082,9 @@ menuDelete() {
 		failSafe := A_TickCount
 		failSafeTime := 0
 		Loop {
-			clickButton := FindOrLoseImage(75, 340, 195, 530, 40, "Button2", 0, failSafeTime)
+			clickButton := FindOrLoseImage(100, 350, 195, 378, 80, "Button", 0, failSafeTime)
 			if(!clickButton) {
-				clickImage := FindOrLoseImage(140, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime)
+				clickImage := FindOrLoseImage(200, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime)
 				if(clickImage) {
 					StringSplit, pos, clickImage, `,  ; Split at ", "
 					adbClick(pos1, pos2)
@@ -1144,9 +1144,9 @@ menuDeleteStart() {
 			failSafe := A_TickCount
 			failSafeTime := 0
 			Loop {
-				clickButton := FindOrLoseImage(75, 340, 195, 530, 80, "Button", 0, failSafeTime)
+				clickButton := FindOrLoseImage(100, 350, 195, 378, 80, "Button", 0, failSafeTime)
 				if(!clickButton) {
-					clickImage := FindOrLoseImage(140, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime)
+					clickImage := FindOrLoseImage(200, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime)
 					if(clickImage) {
 						StringSplit, pos, clickImage, `,  ; Split at ", "
 						adbClick(pos1, pos2)
