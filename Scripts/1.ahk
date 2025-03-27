@@ -1144,7 +1144,7 @@ menuDelete() {
 		failSafe := A_TickCount
 		failSafeTime := 0
 		Loop {
-			clickButton := FindOrLoseImage(75, 340, 195, 530, 40, "Button2", 0, failSafeTime)
+			clickButton := FindOrLoseImage(100, 350, 195, 378, 80, "Button", 0, failSafeTime)
 			if(!clickButton) {
 				clickImage := FindOrLoseImage(200, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime) ; fix https://discord.com/channels/1330305075393986703/1354775917288882267/1355090394307887135
 				if(clickImage) {
@@ -1212,7 +1212,7 @@ menuDeleteStart() {
 			failSafe := A_TickCount
 			failSafeTime := 0
 			Loop {
-				clickButton := FindOrLoseImage(75, 340, 195, 530, 80, "Button", 0, failSafeTime)
+				clickButton := FindOrLoseImage(100, 350, 195, 378, 80, "Button", 0, failSafeTime)
 				if(!clickButton) {
 					clickImage := FindOrLoseImage(200, 340, 250, 530, 60, "DeleteAll", 0, failSafeTime)
 					if(clickImage) {
