@@ -667,12 +667,22 @@ AddFriends(renew := false, getFC := false) {
                 }
             }
             FindImageAndClick(120, 500, 155, 530, , "Social", 143, 518, 500)
-            FindImageAndClick(20, 500, 55, 530, , "Home", 40, 516, 500)
         }
-        CreateStatusMessage("Waiting for friends to accept request`n(" . count . "/" . waitTime . " seconds)")
-        sleep, 1000
+        else {
+            FindImageAndClick(226, 100, 270, 135, , "Add", 38, 460, 500)
+            FindImageAndClick(96, 450, 105, 480, , "Applying", 138, 461)
+            sleep, 500
+            AllAccepted := FindOrLoseImage(165, 190, 255, 220, 40, "Withdraw", 1)
+            FindImageAndClick(120, 500, 155, 530, , "Social", 143, 518, 500)
+            if(AllAccepted) {
+                CreateStatusMessage("All friends have already accepted request.")
+                break
+            }
+            CreateStatusMessage("Waiting for friends to accept request. `n" . count . "/" . waitTime . " seconds.")
+        }
         count++
     }
+    FindImageAndClick(20, 500, 55, 530, , "Home", 40, 516, 500)
     return n ;return added friends so we can dynamically update the .txt in the middle of a run without leaving friends at the end
 }
 
